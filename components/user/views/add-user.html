@@ -1,0 +1,152 @@
+<style>
+.panel-body{padding: 44px;}
+.panel-default {
+    border-color: transparent;
+    width: fit-content;
+    margin-left: 377px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}   
+@media (max-width: 560px) {
+
+.panel-default {
+border-color: transparent!important;
+width: auto!important;
+margin-left: 5px!important;
+
+}
+
+}
+</style>
+
+<!-- Page Header Start -->
+<div  cg-busy="promise" data-ng-controller="UserController" ng-init="create(user)">
+<div class="pageheader" >
+  <h2><i class="fa fa-plus"></i>Add User </h2>
+  <div class="breadcrumb-wrapper hidden-xs"> 
+  
+  </div>
+</div>
+<!-- Page Header End -->
+
+<div class="page"> 
+<div class="row">   	  
+	 <div class="col-lg-12" style="width: 77%;"> 
+	 
+       <!--Proforma-->
+      <section class="panel panel-default" >
+	          <div class="panel-body">
+ <form  name="addprofile" novalidate>
+	  
+ <div class="row" >	
+            
+			<!-- <div class="col-md-12">
+			<div style="width:100%" >
+			<div class="form-group" ng-class="{'has-error': addprofile.title.$touched && addprofile.title.$error.required , 'has-success':addprofile.title.$valid }">
+            <label for="title" class="col-sm-14 control-label">User ID  </label> 
+            <input type="text"  id="title" name="title" placeholder="Enter your title" class="form-control" ng-model="user.userID" required>  
+			</div>
+	         
+			<div class="col-sm-14 col-sm-offset-0">
+            <span class="help-block" style="color:red" ng-show="addprofile.title.$touched && addprofile.title.$error.required">Enter your Title</span>
+            </div>
+			</div>
+			</div> -->
+            <!-- <div class="col-md-12">
+                <div style="width:100%" >
+                <div class="form-group" ng-class="{'has-error': addprofile.email.$touched && addprofile.email.$error.required , 'has-success':addprofile.email.$valid }">
+                <label for="email" class="col-sm-14 control-label">Email </label> 
+                <input type="email"  id="email" name="email" placeholder="Enter your email" class="form-control" ng-model="user.email" required>  
+                </div>
+                 
+                <div class="col-sm-14 col-sm-offset-0">
+                <span class="help-block" style="color:red" ng-show="addprofile.email.$touched && addprofile.email.$error.required">Enter Email</span>
+                </div>
+                </div>
+                </div>		 -->
+			<div class="col-md-12">
+			<div style="width:100%" >
+			<div class="form-group" ng-class="{'has-error': addprofile.fullName.$touched && addprofile.fullName.$error.required , 'has-success':addprofile.fullName.$valid }">
+            <label for="fullName" class="col-sm-14 control-label">Enter Full Name </label> 
+            <input type="text"  id="firstName" name="firstName" placeholder="Enter your Full Name" class="form-control" ng-model="user.fullName" required>  
+			</div>
+	         
+			<div class="col-sm-14 col-sm-offset-0">
+            <span class="help-block" style="color:red" ng-show="addprofile.fullName.$touched && addprofile.fullName.$error.required">Enter Full Name</span>
+            </div>
+			</div>
+			</div>
+			<div class="col-md-12">
+			<div style="width:100%" >
+			<div class="form-group" ng-class="{'has-error': addprofile.loginID.$touched && addprofile.loginID.$error.required , 'has-success':addprofile.loginID.$valid }">
+            <label for="loginID" class="col-sm-14 control-label">Login Name or email </label> 
+            <input type="text"  id="firstName" name="firstName" placeholder="Enter your Login Name or email" class="form-control" ng-model="user.loginID" required>  
+			</div>
+	         
+			<div class="col-sm-14 col-sm-offset-0">
+            <span class="help-block" style="color:red" ng-show="addprofile.loginID.$touched && addprofile.loginID.$error.required">Enter Login Name</span>
+            </div>
+			</div>
+			</div>
+			<div class="col-md-12">
+			<div style="width:100%" >
+                <div class="form-group">
+                    <label for="" class="col-sm-4">App Name</label>
+                    <div class="col-sm-10" style="margin-bottom: 20px;">
+                      <ui-select ng-model="appListObj.selected" theme="bootstrap"> 
+                        <ui-select-match placeholder="Select or search App  Name in the list..." value="app.appID">{{$select.selected.appName}}</ui-select-match>
+                        <ui-select-choices repeat="app in allAppList | filter: $select.search">
+                          <div ng-bind-html="app.appName | highlight: $select.search"></div>
+                      </ui-select>
+                    </div>
+                  </div>
+			</div>
+			</div>
+			<div class="col-md-12">
+			<div style="width:100%" >
+                <div class="form-group">
+                    <label for="" class="col-sm-4">Role Name</label>
+                    <div class="col-sm-10" style="margin-bottom: 20px;">
+                      <ui-select ng-model="roleListObj.selected" theme="bootstrap"> 
+                        <ui-select-match placeholder="Select or search Role Name in the list...">{{$select.selected.roleName}}</ui-select-match>
+                        <ui-select-choices repeat="role in roleList | filter: $select.search">
+                          <div ng-bind-html="role.roleName | highlight: $select.search"></div>
+                      </ui-select>
+                    </div>
+                  </div>
+			</div>
+			</div>  
+              
+                <!-- <div class="form-group">
+                    <label for="" class="col-sm-4">App Name</label>
+                    <div class="col-sm-10" style="margin-bottom: 20px;">
+                      <ui-select ng-model="appListObj.selected" theme="bootstrap"> 
+                        <ui-select-match placeholder="Select or search Role Name in the list...">{{$select.selected.appName}}</ui-select-match>
+                        <ui-select-choices repeat="app in allAppList | filter: $select.search">
+                          <div ng-bind-html="app.appName | highlight: $select.search"></div>
+                      </ui-select>
+                    </div>
+                  </div> -->
+		 </div>
+    </div> 
+	<div  class="navbar navbar-absolute-bottom text-right " style="border-color:#ccc 1px top;padding: 11px;margin-top: 30px;">    
+     <button class="btn btn-success" ng-disabled="addprofile.$invalid" ng-click='addprofile.$valid && create(user)'>	
+     Save
+    </button>	
+    <button class="btn btn-danger" ng-click="getUserScreen()">
+     Cancel
+    </button>
+    <!-- <button class="btn btn-danger" ng-click="getRoleMgt()">
+     Fetch
+    </button>	 -->
+    </div>   
+	</form>
+</div>
+
+
+</div >
+</section>
+</div ></div >
+</div >

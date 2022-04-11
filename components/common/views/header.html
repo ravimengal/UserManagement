@@ -1,0 +1,31 @@
+<div class="top-header clearfix"> 
+  
+  <!-- Logo -->
+  <div class="logo {{admin.navbarlogo}} ">
+    <div class="logo-title "><i class="fa fa-headset ph-5"></i>User Manager<strong></strong></div>
+  </div>
+  
+  <!-- needs to be put after logo to make it working-->
+  <div class="menu-button" toggle-off-canvas> <a href="javascript:void(0)" alt=""> <i class="fa fa-fw fa-outdent "></i> </a> </div>
+
+  <div class="top-nav">
+    <ul class="nav-left list-unstyled">
+     <li> <a href="javascript:void(0)" class="toggle-min" id="step3" data-toggle-nav-collapsed-min><i class="fa fa-bars"></i></a> </li>     	    
+    </ul>
+    <ul class="nav-right pull-right list-unstyled">
+     <!-- <li class="hidden-xs hidden-sm" fullscreen-Mode></li>
+      <li class="dropdown langs text-normal" data-ng-controller="LangCtrl"> <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" > {{lang}} </a> </li>-->
+      <li class="dropdown text-normal  " uib-dropdown > <a href="javascript:void(0)"  uib-dropdown-toggle class="dropdown-toggle" data-toggle="dropdown"> 
+	    <!--<img src="images/photos/user2.png" alt="" class="img-circle img40_40">--> <span class="ph-5 " > 
+	  <i class="fa fa-university"></i> <span class="text-bold" data-i18n="{{orgName}}" ></span> <i class="fa fa-caret-down"></i></span> </a>
+        <ul class="dropdown-menu with-arrow pull-right" uib-dropdown-menu>
+          <li> <a href="javascript:void(0)">  <span class="text-bold" data-i18n="{{userName}}"></span> </a> </li>
+          <li > <a href="#/components/common/views/organization-list"> <i class="fa fa-sync"></i> <span data-i18n="Change Organization"></span> </a> </li>
+		  <li > <a href="http://128.199.21.165/login/#/components/dashboard/views/dashboard-v1"> <i class="fa fa-sync"></i> <span data-i18n="Change Application"></span> </a> </li>
+          <li> <a href="javascript:void(0)"  ng-click="logout()"> <i class="fa fa-sign-out-alt"></i> <span data-i18n="Log Out"></span> </a> </li>
+        </ul>
+      </li>
+    
+    </ul>
+  </div>
+</div>

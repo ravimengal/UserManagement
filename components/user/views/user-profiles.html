@@ -1,0 +1,363 @@
+ 
+
+ <style>
+.selectedIndex {
+  background:  #b3d1ff;
+}
+
+.att{
+padding: 10px;
+    margin-right: 20px;
+    border: 1px solid #999;
+    border-radius: 5px;
+	flex-direction: row !important;
+      align-items: stretch !important;
+     display: inline-flex !important;
+
+
+}
+
+.thumbb{
+align-items: center !important;
+justify-content: center !important;
+
+display: inline-block;
+    margin-right: 10px;
+
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  margin-left:22px;
+  margin-top:28px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;   
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+/* 
+input:checked + .slider {
+  background-color: #2196F3;
+} */
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}   
+/* Adding hover effect */
+
+.Add_user:hover{
+background-color:#eef0f0;
+
+}
+
+.Permit_user:hover{
+background-color: #eef0f0;
+
+}
+
+.changep{
+  border-color: #bdbdbd;
+  margin-left: 27px;
+}
+
+</style>
+
+
+
+
+<!-- Site Setting Panel End -->
+<div  cg-busy="promise" data-ng-controller="UserController" id="UserController" ng-init="getAllprofile()" >
+<!-- Page Header Start -->
+<div class="pageheader"  ng-init="viewprofile()">
+  <h2><i class="fa fa-users"></i>{{profiles.length}} User Profiles </h2> 
+<!--<small class="pull-left" style="padding-left:100px;"  ng-if="detailsview.status=='closed'">Total Closed : {{closedcount}}</small>-->
+  <div class="breadcrumb-wrapper hidden-xs pull-left" style="right: 51px;"> <span class="label"></span>
+    <ol class="breadcrumb">
+    
+   <!-- DropDown menu -->
+
+   <div class="btn-group" uib-dropdown>
+    <button id="split-button" type="button" class="btn btn-default" style="color: black;">Action</button>
+    <button type="button" class="btn btn-default" uib-dropdown-toggle>
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button" style="margin-left:-65px;     padding: 5px;" >
+      <a><li ng-click="getCreateScreen(app.appID)" class="Add_user" style="margin-bottom: 10px; font-size: 16px; cursor: pointer; color: black; padding: 6px;"> <span class="fas fa-plus"></span> Add User</li></a>
+      <hr>
+        <a><li ng-click="permitAccess(app.appID)"  class="Permit_user" style="font-size: 16px; cursor: pointer; color: black; padding: 6px;"> <span class="fas fa-universal-access"></span> Permit Access</li></a>     
+    </ul>
+  </div>
+    </ol>
+  </div>
+</div>
+<!-- Page Header End -->
+<div class="page">
+    <div class="row">
+        <div class="col-xs-12 col-md-4">		 
+		   <section class="panel panel-default mail-container">
+		    <header class="panel-heading">   
+        <div class="input-group" id="adv-search">
+          <input type="text" class="form-control" placeholder="Search..." data-ng-model="query">
+      <div disabled="true" class="input-group-btn">
+          <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>      
+          </div>  
+      </div>
+		  </header>
+		      <div class="panel-body" data-slim-scroll data-scroll-height="480px">       
+ <div class="row sideBar" >
+          <div ng-repeat="profile in profiles| orderBy: 'profile.fullName' |filter:query"> 
+         <div class="row sideBar-body" ng-click="getUserDetailsScreen(profile)"  ng-class="{selectedIndex: selectedIndex===$index}" ng-init="popoverOpened=false"    
+								uib-popover-template="'reqTemplate.html'" popover-is-open="popoverOpened" popover-append-to-body="true" ng-click="popoverOpened=false;popoverOpened=false"
+						 popover-placement="right" popover-trigger="mouseenter" popover-title={{profile.fullName}} 
+								style="cursor:pointer;" >
+            <div class="col-sm-8 col-xs-8 sideBar-main" >
+              <div class="row">
+                <div class="sideBar-name" style="white-space: nowrap;width:150%;text-overflow: ellipsis; ">
+                  <span class="name-meta" style="font-weight:normal;"> {{profile.fullName}}
+                </span>
+				<!--  <span class="label label-danger">4</span>-->
+								   <div style="margin-top:8px;">
+                      <span class="label label-primary">{{profile.title}}</span>
+					 					   <span class="label label-info">{{profile.loginName}}</span>
+                        <span class="label label-info">{{profile.mobile}}</span>                       
+                        <span class="pull-right ">                         
+                          <!-- Update Button -->
+                      <button   class="btn btn-default btn-sm" ng-click="getUpdateScreen(profile)" uib-tooltip="Update User" tooltip-append-to-body="true" tooltip-placement="bottom" > <i class="fa fa-edit"></i></button>
+                      <!-- Delete Button -->
+                   <!-- <button   class="btn btn-default btn-sm" ng-click="removeAppAccess(profile)" uib-tooltip="Delete User" tooltip-append-to-body="true" tooltip-placement="bottom"> <i class="fa fa-trash-alt"></i></button> -->
+                  </span>
+					          </div>
+                </div>  
+              </div>
+			  </div>
+		</div>	  
+            </div>        
+				          <div style="padding-top:20px;text-align:center;" ng-if="profiles.length==0">No Users Found</div>
+            </div>
+    </section>
+        </div>
+		 <div class="col-xs-12 col-md-8 panel-heading">
+      <!-- <h3 class="pull-left" style="margin-right: 36px;" >Total App:{{appList.length}}</h3> -->
+      <!-- <div class="d-flex">
+      <h1 style="margin-right: 20px;"><i class="fa fa-user"></i> {{updateuser.fullName}}</h1>  
+      <h5 style="margin-left: 40px;">Has Access to {{appList.length}} App <button type="button" class="btn btn-sm btn-secondary changep" ng-click="checkButton()">
+        Profile
+       </button>
+       <button type="button" class="btn btn-sm btn-secondary changep" ng-click="updatePasswordModal()">
+        Change Password
+       </button>
+       <button type="button" class="btn btn-sm btn-secondary changep" ng-click="checkButton()">
+        Access Control
+       </button></h5>
+        -->  
+        <div class="col-md-12">
+          <div class="panel">
+          <div class="text-center pad-15"> <img alt="" src="images/photos/user1.png" class="img-thumbnail img-responsive img-circle"/>
+            <h4>{{updateuser.fullName}}</h4>
+            <div class="pad-5 text-small"> <h5>Has Access to {{appList.length}} App</div>
+              <span class="label label-info">{{updateuser.loginName}}</span>
+              <span class="label label-info">{{updateuser.mobile}}</span> 
+          </div>
+        </div>
+      </div>  
+      <div class="col-xs-12 col-md-9 col-lg-8" style="width: 101.66667%!important;"> 
+        <!-- Bootstrap Justified Tab -->
+        <section class="panel panel-default">
+          <uib-tabset class="tab-block"> 
+
+            <uib-tab heading="Details">
+              <div class="panel panel-default">
+                <div class="panel-body" style="padding:8px">
+                  <div class="panel">
+                    <header class="panel-heading nb"> <i class="fa fa-user ph-5"></i> User Information </header>
+                    <div class="panel-body">
+                      <table class="table">
+                        <tbody>
+                          <tr>
+                            <td><i class="fa fa-envelope "></i></td>
+                            <td> User Name </td>
+                            <td> {{updateuser.fullName}}</td>
+                          </tr>
+                          <tr>
+                            <td><i class="fa fa-envelope "></i></td>
+                            <td> Email </td>
+                            <td>{{updateuser.loginName}} </td>
+                          </tr>
+                          <tr>
+                            <td><i class="fa fa-phone "></i></td>
+                            <td> Phone </td>
+                            <td> {{updateuser.mobile}} </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </uib-tab>
+          
+            <uib-tab heading="Access Control">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div class="btn-group" style="margin: 20px;" uib-dropdown>
+                  <button id="split-button" type="button" class="btn btn-default" style="color: black;">Action</button>
+                  <button type="button" class="btn btn-default" uib-dropdown-toggle>
+                    <span class="caret"></span>
+                  </button>
+                  <!-- <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button" style="margin-left:-65px;     padding: 5px;" >
+                    <a><li ng-click="getCreateScreen(app.appID)" class="Add_user" style="margin-bottom: 10px; font-size: 16px; cursor: pointer; color: black; padding: 6px;"> <span class="fas fa-plus"></span> Add User</li></a>
+                    <hr>
+                      <a><li ng-click="permitAccess(app.appID)"  class="Permit_user" style="font-size: 16px; cursor: pointer; color: black; padding: 6px;"> <span class="fas fa-universal-access"></span> Permit Access</li></a>      -->
+                  </ul>
+                </div>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>App ID</th>
+                      <th>App Name</th>
+                      <th> Role Name</th>
+                      <th> Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="profile in appList">
+                      <td>{{profile.appID}}</td>
+                      <td>{{profile.appName}}</td>
+                      <td>{{profile.roleName}}</td>
+                      <td> <button   class="btn btn-default btn-sm" ng-click="removeUserAppAccess(profile.appID,updateuser.userID)" uib-tooltip="Delete User" tooltip-append-to-body="true" tooltip-placement="bottom" > <i class="fa fa-trash"></i></button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </uib-tab> 
+          <uib-tab heading="Change Password">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div class="lock-wrapper">
+                  <div class="panel lock-box">
+                    <!-- <div class="center"> <img alt="" src="images/photos/user.png" class="img-circle"/> </div> -->
+                    <h4> Change Password </h4>
+                    <div class="row">
+                      <form action="index.html" class="form-inline" role="form">
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                          <div class="iconic-input right">
+                           <input id="signupInputEmail1" type="password"  ng-model="user.password" placeholder="Enter password" class="form-control padding-horizontal-15" required="required" /> 
+                            </div>
+                          <button type="button" class="btn btn-block btn-primary" ng-click="updatePassword(user)" disable-double-click >Reset Password</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </uib-tab>  
+        </uib-tabset>
+        </section>
+        <!-- end Bootstrap Justified Tab --> 
+      </div>
+    </div>                 
+</div>
+
+     <!-- Right side detail table with update and delete button-->
+		 <!-- <div class="col-xs-12 col-md-8" >      
+   <div class="row" style="margin-top: 10px;" ng-repeat="profile in appList">
+    <div class="d-flex">
+    <div style="width: 100%;" class=" col-sm-10 col-md-6 col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="col-xs-1">
+            <div class="counter-icon bg-success" style="width:66px; margin-top: 20px;"> <i class="fa fa-users"></i></div>          
+          </div>  
+          <div class="col-xs-9 text-left " style="margin-left: 40px;" >
+            <div class="counter-number">{{profile.fullName}}</div>
+            <h2>{{profile.appName}}</h2> 
+            <p class="text-muted nm"><h4>Role Name</h4>{{profile.roleName}}</p>
+          
+          </div> -->
+          <!-- <label class="switch">
+            <input type="checkbox" checked>
+            <span class="slider round"></span>
+          </label> -->
+        <!-- </div>
+      </div></a>
+    </div>  
+    </div>          
+  </div>
+</div> -->
+
+</div>
+<script type="text/ng-template"  id="reqTemplate.html"> 
+
+ <div style="overflow:visible;" >
+
+   <table class="table">
+              <tbody class="small">
+               <tr>
+                  <td>Title</td>
+                  <td>{{profile.title}}</td>
+                </tr>
+				 	 <tr>
+                  <td>Full Name</td>
+                  <td>{{profile.fullName}}</td>
+                </tr>
+					 <!-- <tr>
+                  <td>Last Name</td>
+                  <td>{{profile.lastName}}</td>
+                </tr> -->
+				 <tr>
+                  <td>Email</td>
+                  <td>{{profile.loginName}}</td>
+                </tr>
+              </tbody>
+            </table></div>
+			      <!--<section class="text-center no-print" > <a href="" ng-click="viewQuotscreennew(quotview.documentId,quotview.orgID)" class="btn btn-primary btn-xs btn-w-lg"><i class="fa fa-eye"></i> Details</a>
+				  <!--&nbsp;&nbsp;<a href="" ng-click="closePopover($event)"
+						 class="btn btn-danger btn-xs btn-w-lg"><i class="fa fa-times"></i> Close</a> </section>-->
+						
+</script>
+

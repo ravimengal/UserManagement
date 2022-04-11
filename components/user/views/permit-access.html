@@ -1,0 +1,182 @@
+<style>
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  margin-left:22px;
+  margin-top:  -3px !important;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;   
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #00b700 !important;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}   
+/* Adding hover effect */
+
+.Add_user:hover{
+background-color:#eef0f0;
+
+}
+
+.Permit_user:hover{
+background-color: #eef0f0;
+}
+
+</style>
+
+<div class="modal-content">
+    <div class="modal-header dialog-header-confirm btn-danger" style="background-color: #3CBC8D!important;">
+      <button type="button" 
+                  class="close" 
+                  ng-click="closePermitModal()"
+                  data-dismiss="modal" 
+                  aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title">Permit Access</h4>
+    </div>
+     <div class="modal-body touch-scroll " >
+    <form role="form" name="deleteNominationForm" novalidate >    
+         <div class="form-horizontal " style="padding:0px" >
+               <div class="form-group" style="padding:10px">
+                <div class="col-md-12">
+                    <div style="width:100%" >
+                    <div class="form-group" ng-class="{'has-error': updateprofile.fullName.$touched && updateprofile.fullName.$error.required , 'has-success':updateprofile.fullName.$valid }">
+                          <label for="fullName" class="col-sm-14 control-label">Full Name </label> 
+                          <!-- <input type="text"  id="firstName" name="firstName" placeholder="Enter your Full Name" class="form-control" ng-model="updateuser.fullName" disabled>   -->
+                          <h4>{{updateuser.fullName}}</h4>
+                    </div>
+                         
+                    <div class="col-sm-14 col-sm-offset-0">
+                          <span class="help-block" style="color:red" ng-show="updateprofile.fullName.$touched && updateprofile.fullName.$error.required">Full Name</span>
+                          </div>
+                    </div>
+                    </div>
+                    <div class="col-md-12">
+                    <div style="width:100%" >
+                    <div class="form-group" ng-class="{'has-error': updateprofile.loginName.$touched && updateprofile.loginName.$error.required , 'has-success':updateprofile.loginName.$valid }">
+                          <label for="loginName" class="col-sm-14 control-label">Login Name </label> 
+                          <!-- <input type="text"  id="firstName" name="firstName" placeholder="Enter your Login Name" class="form-control" ng-model="updateuser.loginName" disabled>   -->
+                          <h4>{{updateuser.loginName}}</h4>
+                    </div>
+                         
+                    <div class="col-sm-14 col-sm-offset-0">
+                          <span class="help-block" style="color:red" ng-show="updateprofile.loginName.$touched && updateprofile.loginName.$error.required">Login Name</span>
+                          </div>
+                    </div>
+                    </div>
+                    <!-- <div class="col-md-12">
+                    <div style="width:100%" >
+                    <div class="form-group" ng-class="{'has-error': updateprofile.appID.$touched && updateprofile.appID.$error.required , 'has-success':updateprofile.appID.$valid }">
+                          <label for="appID" class="col-sm-14 control-label">App Name </label> 
+                          <select id="UserSelector" style="width: 100%;"> -->
+                            <!-- render allAppList -->
+                            <!-- <option ng-repeat="app in allAppList" value="{{appID}}">{{app.appName}}</option>
+                          </select>
+                    </div>
+                          -->
+                    <div class="col-sm-14 col-sm-offset-0">
+                          <span class="help-block" style="color:red" ng-show="updateprofile.appID.$touched && updateprofile.appID.$error.required">Enter App ID</span>
+                          </div>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="" class="col-sm-4">App Name</label>
+                      <div class="col-sm-10" style="margin-bottom: 20px;">
+                        <ui-select ng-model="appListObj.selected" theme="bootstrap"> 
+                          <ui-select-match placeholder="Select or search Role Name in the list...">{{$select.selected.appName}}</ui-select-match>
+                          <ui-select-choices repeat="profile in appList | filter: $select.search">
+                            <div ng-bind-html="profile.appName | highlight: $select.search" value="profile.appID"></div>
+                        </ui-select>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="" class="col-sm-4">Role Name</label>
+                      <div class="col-sm-10">
+                        <ui-select ng-model="roleListObj.selected" theme="bootstrap">
+                          <ui-select-match placeholder="Select or search Role Name in the list...">{{$select.selected.roleName}}</ui-select-match>
+                          <ui-select-choices repeat="profile in appList | filter: $select.search">
+                            <div ng-bind-html="profile.roleName | highlight: $select.search" value="profile.roleID"></div>
+                        </ui-select>
+                      </div>
+                    </div>
+                    <!-- <div class="col-md-12">
+                    <div style="width:100%" >
+                    <div class="form-group" ng-class="{'has-error': updateprofile.roleID.$touched && updateprofile.roleID.$error.required , 'has-success':updateprofile.roleID.$valid }">
+                          <label for="roleID" class="col-sm-14 control-label">Role Name </label> 
+                          <select id="UserSelector" style="width: 100%;">
+                            <option ng-repeat="role in allAppList"  value="{{appID}}">{{role.roleName}}</option>
+                          </select>
+                    </div>
+                         
+                    <div class="col-sm-14 col-sm-offset-0">
+                          <span class="help-block" style="color:red" ng-show="updateprofile.roleID.$touched && updateprofile.roleID.$error.required">Enter role ID </span>
+                          </div>
+                    </div>
+                    </div> -->
+                    <!-- provoked access to the application by toggling button -->
+                    <!-- <div class="Toggle-access col-md-12 " style="display: flex; align-items: center; margin-left: -15px;"> 
+                        <label class="col-sm-14"><span>Permit access to the App</span></label>                        
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                          </label> 
+                    </div>
+                 -->
+              </div>
+    <div class="modal-footer ">
+      <button   class="btn btn-cmd btn-danger"  ng-click="closePermitModal()">Cancel</button>
+      <button   class="btn btn-cmd btn-success" ng-click="update(updateuser)" disable-double-click >Update Access</button> 
+   </div>           
+             </div>
+        </div>  
+      </form>
+  </div>

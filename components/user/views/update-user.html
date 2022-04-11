@@ -1,0 +1,225 @@
+<style>
+.panel-body{padding:15px;}
+.panel-default {
+    border-color: transparent;
+    width: fit-content;
+    margin-left: 334px
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}   
+
+@media (max-width: 560px) {
+
+	.panel-default {
+    border-color: transparent!important;
+    width: auto!important;
+    margin-left: 5px!important;
+}
+	
+}
+</style>
+
+<!-- Page Header Start -->
+<div  cg-busy="promise" data-ng-controller="UserController" ng-init="getupdateuser()">
+<div class="pageheader"  >
+  <h2><i class="fa fa-edit"></i>Update User {{updateuser.userID}} </h2>
+  <div class="breadcrumb-wrapper hidden-xs"> 
+  
+      
+   
+  </div>
+</div>
+<!-- Page Header End -->
+
+<div class="page">
+<div class="row">   	  
+	 <div class="col-lg-12"> 
+	 
+       <!--Proforma-->
+      <section class=" card panel panel-default" >
+	          <div class="panel-body">
+ <form  name="updateprofile" novalidate>
+  <div class="row" >	
+            
+    <!-- <div class="col-md-12">
+    <div style="width:100%" >
+    <div class="form-group" ng-class="{'has-error': updateprofile.title.$touched && updateprofile.title.$error.required , 'has-success':updateprofile.title.$valid }">
+          <label for="title" class="col-sm-14 control-label">User ID  </label> 
+          <input type="text"  id="title" name="title" placeholder="Enter your title" class="form-control" ng-model="user.userID" required>  
+    </div>
+         
+    <div class="col-sm-14 col-sm-offset-0">
+          <span class="help-block" style="color:red" ng-show="updateprofile.title.$touched && updateprofile.title.$error.required">Enter your Title</span>
+          </div>
+    </div>
+    </div> -->
+          <!-- <div class="col-md-12">
+              <div style="width:100%" >
+              <div class="form-group" ng-class="{'has-error': updateprofile.email.$touched && updateprofile.email.$error.required , 'has-success':updateprofile.email.$valid }">
+              <label for="email" class="col-sm-14 control-label">Email </label> 
+              <input type="email"  id="email" name="email" placeholder="Enter your email" class="form-control" ng-model="user.email" required>  
+              </div>
+               
+              <div class="col-sm-14 col-sm-offset-0">
+              <span class="help-block" style="color:red" ng-show="updateprofile.email.$touched && updateprofile.email.$error.required">Enter Email</span>
+              </div>
+              </div>
+              </div>		 -->
+    <div class="col-md-12">
+    <div style="width:100%" >
+    <div class="form-group" ng-class="{'has-error': updateprofile.fullName.$touched && updateprofile.fullName.$error.required , 'has-success':updateprofile.fullName.$valid }">
+          <label for="fullName" class="col-sm-14 control-label">Enter Full Name </label> 
+          <input type="text"  id="firstName" name="firstName" placeholder="Enter your Full Name" class="form-control" ng-model="updateuser.fullName" required>  
+    </div>
+         
+    <div class="col-sm-14 col-sm-offset-0">
+          <span class="help-block" style="color:red" ng-show="updateprofile.fullName.$touched && updateprofile.fullName.$error.required">Enter Full Name</span>
+          </div>
+    </div>
+    </div>
+    <div class="col-md-12">
+    <div style="width:100%" >
+    <div class="form-group" ng-class="{'has-error': updateprofile.loginName.$touched && updateprofile.loginName.$error.required , 'has-success':updateprofile.loginName.$valid }">
+          <label for="loginName" class="col-sm-14 control-label">Login Name </label> 
+          <input type="text"  id="loginName" name="loginName" placeholder="Enter your Login Name" class="form-control" ng-model="updateuser.loginName" required>  
+    </div>
+         
+    <div class="col-sm-14 col-sm-offset-0">
+          <span class="help-block" style="color:red" ng-show="updateprofile.loginName.$touched && updateprofile.loginName.$error.required">Enter Login Name</span>
+          </div>
+    </div>
+    </div>
+    <div class="col-md-12">
+    <div style="width:100%" >
+    <div class="form-group" ng-class="{'has-error': updateprofile.appID.$touched && updateprofile.appID.$error.required , 'has-success':updateprofile.appID.$valid }">
+          <label for="appID" class="col-sm-14 control-label">App ID </label> 
+          <input type="text"  id="appName" name="appName" placeholder="Enter your App Name" class="form-control" ng-model="updateuser.appID" required>  
+    </div>
+         
+    <div class="col-sm-14 col-sm-offset-0">
+          <span class="help-block" style="color:red" ng-show="updateprofile.appID.$touched && updateprofile.appID.$error.required">Enter App Name</span>
+          </div>
+    </div>
+    </div>
+    <div class="col-md-12">
+    <div style="width:100%" >
+    <div class="form-group" ng-class="{'has-error': updateprofile.roleID.$touched && updateprofile.roleID.$error.required , 'has-success':updateprofile.roleID.$valid }">
+          <label for="roleID" class="col-sm-14 control-label">Role ID </label> 
+          <input type="text"  id="roleName" name="roleName" placeholder="Enter your Role Name" class="form-control" ng-model="updateuser.roleID" required>  
+    </div>
+         
+    <div class="col-sm-14 col-sm-offset-0">
+          <span class="help-block" style="color:red" ng-show="updateprofile.roleID.$touched && updateprofile.roleID.$error.required">Enter role name </span>
+          </div>
+    </div>
+    </div>
+
+    <div class="col-md-12">
+      <div style="width:100%" >
+      <div class="form-group" ng-class="{'has-error': updateprofile.roleID.$touched && updateprofile.roleID.$error.required , 'has-success':updateprofile.roleID.$valid }">
+            <label for="roleID" class="col-sm-14 control-label">mobile </label> 
+            <input type="text"  id="mobileNo" name="mobileNo" placeholder="Enter your mobile" class="form-control" ng-model="updateuser.mobile" required>  
+      </div>
+           
+      <div class="col-sm-14 col-sm-offset-0">
+            <span class="help-block" style="color:red" ng-show="updateprofile.roleID.$touched && updateprofile.roleID.$error.required">Enter mobile</span>
+            </div>
+      </div>
+      </div>
+    <!-- <div class="col-md-12" style="margin-top:14px">
+              <div style="width:100%" >
+                  <label for="roles">Select Role</label>
+                  <select id="roles">
+                    <option value="x">Member</option>
+                    <option value="y">Member1</option>
+                    <option value="z">Member2</option>
+                    <option value="w" selected>Member3</option>
+                  </select>
+              </div>
+              </div>                -->
+    </br>		 
+   </div>       	      	
+		 <!-- <label class="switch">
+			<input type="checkbox" checked>
+			<span class="slider round"></span>
+		  </label> -->
+	  <div  class="navbar navbar-absolute-bottom text-right " style="border-color:#ccc 1px top;padding:10px">    
+     <button class="btn btn-success"  ng-click='update(updateuser)'>
+     Save
+    </button>	
+     <button class="btn btn-warning" ng-click="getUserScreen()">
+      Cancel
+     </button>		
+     <button class="btn btn-danger" ng-click="deleteUserScreen(userID)">
+      Delete
+       </button>
+    </div>
+	    </form>
+
+
+  	  
+
+</div>
+
+
+</div >
+</section>
+</div ></div >
+</div >
